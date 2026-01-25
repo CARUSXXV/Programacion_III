@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroVault - Tu Tienda de Videojuegos Clásicos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>RetroVault</h1>
+            </div>
+            <ul id="nav-links">
+                <li><a href="#" id="nav-home">Inicio</a></li>
+                <li class="guest-only"><a href="#" id="nav-login">Login</a></li>
+                <li class="guest-only"><a href="#" id="nav-register">Registro</a></li>
+                <li class="auth-only" style="display:none;"><a href="#" id="nav-profile">Mi Perfil</a></li>
+                <li class="auth-only" style="display:none;"><a href="#" id="btn-logout">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- El contenido se cargará dinámicamente aquí -->
+        <section id="home-view" class="view">
+            <div class="hero">
+                <h2>Bienvenido a la Bóveda del Tiempo</h2>
+                <p>Explora nuestra colección de Software, Hardware y Coleccionables de la era dorada de los videojuegos.</p>
+                <div class="categories">
+                    <div class="category-card">Software</div>
+                    <div class="category-card">Hardware</div>
+                    <div class="category-card">Coleccionables</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="login-view" class="view" style="display:none;">
+            <div class="form-container">
+                <h2>Login Gamer</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email:</label>
+                        <input type="email" id="login-email" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password:</label>
+                        <input type="password" id="login-password" required placeholder="********">
+                    </div>
+                    <button type="submit" class="btn-pixel">ENTRAR</button>
+                </form>
+                <p id="login-message" class="message"></p>
+            </div>
+        </section>
+
+        <section id="register-view" class="view" style="display:none;">
+            <div class="form-container">
+                <h2>Nuevo Jugador</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="reg-nombre">Nombre:</label>
+                        <input type="text" id="reg-nombre" required placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email:</label>
+                        <input type="email" id="reg-email" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password:</label>
+                        <input type="password" id="reg-password" required placeholder="Mín. 6 caracteres, 1 Mayús, 1 Núm">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-rol">Rol:</label>
+                        <select id="reg-rol">
+                            <option value="client">Cliente</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-pixel">REGISTRARSE</button>
+                </form>
+                <p id="register-message" class="message"></p>
+            </div>
+        </section>
+
+        <section id="profile-view" class="view" style="display:none;">
+            <div class="profile-card">
+                <h2>Perfil de Usuario</h2>
+                <div id="profile-data">
+                    <!-- Datos cargados por JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 RetroVault - Programación III</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

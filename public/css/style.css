@@ -1,0 +1,180 @@
+:root {
+    --primary-color: #00ff41; /* Matrix Green */
+    --bg-color: #0a0a0a;
+    --card-bg: #1a1a1a;
+    --text-color: #ffffff;
+    --accent-color: #ff00ff; /* Cyberpunk Pink */
+    --error-color: #ff4b2b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+h1, h2, .btn-pixel {
+    font-family: 'Press Start 2P', cursive;
+    text-transform: uppercase;
+}
+
+header {
+    background-color: #000;
+    border-bottom: 4px solid var(--primary-color);
+    padding: 1rem 2rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-shadow: 3px 3px var(--accent-color);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 2rem;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+main {
+    padding: 3rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 80vh;
+}
+
+.hero {
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.category-card {
+    background: var(--card-bg);
+    border: 3px solid var(--primary-color);
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+.form-container, .profile-card {
+    background: var(--card-bg);
+    border: 4px solid var(--accent-color);
+    padding: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 10px 10px 0px var(--primary-color);
+}
+
+.form-container h2, .profile-card h2 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    background: #000;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+}
+
+.btn-pixel {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+.btn-pixel:hover {
+    background: var(--text-color);
+}
+
+.message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.error { color: var(--error-color); }
+.success { color: var(--primary-color); }
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 2px solid var(--card-bg);
+    margin-top: 2rem;
+}
+
+.profile-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.profile-item span {
+    color: var(--primary-color);
+    font-weight: bold;
+}

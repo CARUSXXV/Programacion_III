@@ -241,9 +241,9 @@ describe('Sistema de Autenticación - RetroVault', () => {
     });
   });
 
-  describe('GET /', () => {
-    it('Debe mostrar información de bienvenida', async () => {
-      const response = await request(app).get('/');
+  describe('GET /api', () => {
+    it('Debe mostrar información de bienvenida de la API', async () => {
+      const response = await request(app).get('/api');
 
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
@@ -252,12 +252,12 @@ describe('Sistema de Autenticación - RetroVault', () => {
   });
 
   describe('Rutas no encontradas', () => {
-    it('Debe retornar 404 para rutas inexistentes', async () => {
+    it('Debe retornar 404 para rutas de API inexistentes', async () => {
       const response = await request(app).get('/api/ruta/inexistente');
 
       expect(response.status).toBe(404);
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toBe('Endpoint no encontrado');
+      expect(response.body.message).toBe('Endpoint de API no encontrado');
     });
   });
 });
