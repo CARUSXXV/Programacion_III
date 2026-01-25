@@ -7,97 +7,213 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>RetroVault</h1>
+    <!-- NAVEGACIÓN -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="logo">
+                    <h1>RetroVault</h1>
+                    <span class="tagline">Colecciona Historia</span>
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="guest-only"><a href="#" id="nav-login" class="nav-link">Iniciar Sesión</a></li>
+                    <li class="guest-only"><a href="#" id="nav-register" class="nav-link nav-link-cta">Registrarse</a></li>
+                    <li class="auth-only" style="display:none;"><a href="#" id="nav-dashboard" class="nav-link">Dashboard</a></li>
+                    <li class="auth-only" style="display:none;"><a href="#" id="nav-profile" class="nav-link">Perfil</a></li>
+                    <li class="auth-only" style="display:none;"><a href="#" id="btn-logout" class="nav-link nav-link-logout">Cerrar Sesión</a></li>
+                </ul>
             </div>
-            <ul id="nav-links">
-                <li><a href="#" id="nav-home">Inicio</a></li>
-                <li class="guest-only"><a href="#" id="nav-login">Login</a></li>
-                <li class="guest-only"><a href="#" id="nav-register">Registro</a></li>
-                <li class="auth-only" style="display:none;"><a href="#" id="nav-profile">Mi Perfil</a></li>
-                <li class="auth-only" style="display:none;"><a href="#" id="btn-logout">Cerrar Sesión</a></li>
-            </ul>
         </nav>
     </header>
 
     <main id="main-content">
-        <!-- El contenido se cargará dinámicamente aquí -->
-        <section id="home-view" class="view">
-            <div class="hero">
-                <h2>Bienvenido a la Bóveda del Tiempo</h2>
-                <p>Explora nuestra colección de Software, Hardware y Coleccionables de la era dorada de los videojuegos.</p>
-                <div class="categories">
-                    <div class="category-card">Software</div>
-                    <div class="category-card">Hardware</div>
-                    <div class="category-card">Coleccionables</div>
+        <!-- LANDING PAGE -->
+        <section id="landing-view" class="view">
+            <!-- HERO SECTION -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h2 class="hero-title">Bienvenido a RetroVault</h2>
+                    <p class="hero-subtitle">Descubre la colección más completa de videojuegos clásicos, hardware original y coleccionables de época</p>
+                    <div class="hero-cta">
+                        <button id="btn-hero-register" class="btn btn-primary">Comenzar Ahora</button>
+                        <button id="btn-hero-login" class="btn btn-secondary">Ya tengo cuenta</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-placeholder">🎮</div>
+                </div>
+            </section>
+
+            <!-- FEATURES SECTION -->
+            <section class="features">
+                <div class="container">
+                    <h2 class="section-title">¿Por qué elegir RetroVault?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">📦</div>
+                            <h3>Software Auténtico</h3>
+                            <p>Juegos originales en cartucho y disco para NES, SNES, PS1 y más consolas clásicas</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🖥️</div>
+                            <h3>Hardware Original</h3>
+                            <p>Consolas restauradas y modificadas con garantía de calidad y funcionamiento</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📚</div>
+                            <h3>Coleccionables Raros</h3>
+                            <p>Manuales, guías de estrategia y revistas de época en excelente estado</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✅</div>
+                            <h3>Garantía de Autenticidad</h3>
+                            <p>Todos nuestros productos son verificados y certificados como auténticos</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🚚</div>
+                            <h3>Envío Seguro</h3>
+                            <p>Empaque profesional y envío asegurado para proteger tus adquisiciones</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💬</div>
+                            <h3>Comunidad Activa</h3>
+                            <p>Conecta con otros coleccionistas y comparte tu pasión por los juegos clásicos</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CATEGORIES PREVIEW -->
+            <section class="categories-preview">
+                <div class="container">
+                    <h2 class="section-title">Nuestras Categorías</h2>
+                    <div class="categories-grid">
+                        <div class="category-preview-card">
+                            <div class="category-icon">💾</div>
+                            <h3>Software</h3>
+                            <p>Juegos en cartucho y disco</p>
+                        </div>
+                        <div class="category-preview-card">
+                            <div class="category-icon">🕹️</div>
+                            <h3>Hardware</h3>
+                            <p>Consolas y accesorios</p>
+                        </div>
+                        <div class="category-preview-card">
+                            <div class="category-icon">🎁</div>
+                            <h3>Coleccionables</h3>
+                            <p>Manuales y memorabilia</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA FINAL -->
+            <section class="cta-final">
+                <div class="container">
+                    <h2>¿Listo para explorar?</h2>
+                    <p>Únete a RetroVault y descubre piezas únicas de la historia de los videojuegos</p>
+                    <button id="btn-cta-register" class="btn btn-primary">Crear Cuenta Gratis</button>
+                </div>
+            </section>
+        </section>
+
+        <!-- LOGIN VIEW -->
+        <section id="login-view" class="view" style="display:none;">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Iniciar Sesión</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                    </form>
+                    <p id="login-message" class="message"></p>
+                    <p class="auth-footer">¿No tienes cuenta? <a href="#" id="link-register">Regístrate aquí</a></p>
                 </div>
             </div>
         </section>
 
-        <section id="login-view" class="view" style="display:none;">
-            <div class="form-container">
-                <h2>Login Gamer</h2>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">Email:</label>
-                        <input type="email" id="login-email" required placeholder="tu@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password:</label>
-                        <input type="password" id="login-password" required placeholder="********">
-                    </div>
-                    <button type="submit" class="btn-pixel">ENTRAR</button>
-                </form>
-                <p id="login-message" class="message"></p>
-            </div>
-        </section>
-
+        <!-- REGISTER VIEW -->
         <section id="register-view" class="view" style="display:none;">
-            <div class="form-container">
-                <h2>Nuevo Jugador</h2>
-                <form id="register-form">
-                    <div class="form-group">
-                        <label for="reg-nombre">Nombre:</label>
-                        <input type="text" id="reg-nombre" required placeholder="Tu nombre">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-email">Email:</label>
-                        <input type="email" id="reg-email" required placeholder="tu@email.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-password">Password:</label>
-                        <input type="password" id="reg-password" required placeholder="Mín. 6 caracteres, 1 Mayús, 1 Núm">
-                    </div>
-                    <div class="form-group">
-                        <label for="reg-rol">Rol:</label>
-                        <select id="reg-rol">
-                            <option value="client">Cliente</option>
-                            <option value="admin">Administrador</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-pixel">REGISTRARSE</button>
-                </form>
-                <p id="register-message" class="message"></p>
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Crear Cuenta</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="reg-nombre">Nombre Completo</label>
+                            <input type="text" id="reg-nombre" required placeholder="Tu nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" required placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Contraseña</label>
+                            <input type="password" id="reg-password" required placeholder="Mín. 6 caracteres">
+                            <small>Debe contener mayúscula, minúscula y número</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                    </form>
+                    <p id="register-message" class="message"></p>
+                    <p class="auth-footer">¿Ya tienes cuenta? <a href="#" id="link-login">Inicia sesión aquí</a></p>
+                </div>
             </div>
         </section>
 
+        <!-- DASHBOARD VIEW -->
+        <section id="dashboard-view" class="view" style="display:none;">
+            <div class="container">
+                <h2 class="page-title">Catálogo de Productos</h2>
+                <div class="categories-grid-full">
+                    <div class="category-card-full">
+                        <div class="category-header">💾</div>
+                        <h3>Software</h3>
+                        <p>Juegos físicos en cartucho o disco (NES, SNES, PS1, etc.)</p>
+                        <button class="btn btn-secondary btn-small">Explorar</button>
+                    </div>
+                    <div class="category-card-full">
+                        <div class="category-header">🖥️</div>
+                        <h3>Hardware</h3>
+                        <p>Consolas originales y modificadas (GameBoy, Sega Genesis, etc.)</p>
+                        <button class="btn btn-secondary btn-small">Explorar</button>
+                    </div>
+                    <div class="category-card-full">
+                        <div class="category-header">🎁</div>
+                        <h3>Coleccionables</h3>
+                        <p>Manuales, guías de estrategia y revistas de época</p>
+                        <button class="btn btn-secondary btn-small">Explorar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFILE VIEW -->
         <section id="profile-view" class="view" style="display:none;">
-            <div class="profile-card">
-                <h2>Perfil de Usuario</h2>
-                <div id="profile-data">
-                    <!-- Datos cargados por JS -->
+            <div class="container">
+                <div class="profile-card">
+                    <h2>Mi Perfil</h2>
+                    <div id="profile-data" class="profile-content">
+                        <!-- Datos cargados por JS -->
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 RetroVault - Programación III</p>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 RetroVault. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
     <script src="js/main.js"></script>

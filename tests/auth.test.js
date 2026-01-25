@@ -101,18 +101,17 @@ describe('Sistema de Autenticación - RetroVault', () => {
       expect(response.body.success).toBe(false);
     });
 
-    it('Debe registrar un usuario admin correctamente', async () => {
+    it('Debe registrar un nuevo usuario como client por defecto', async () => {
       const response = await request(app)
         .post('/api/auth/register')
         .send({
-          nombre: 'Admin Usuario',
-          email: 'admin@retrovault.com',
-          password: 'AdminPass123',
-          rol: 'admin',
+          nombre: 'Usuario Normal',
+          email: 'normal@retrovault.com',
+          password: 'NormalPass123',
         });
 
       expect(response.status).toBe(201);
-      expect(response.body.data.rol).toBe('admin');
+      expect(response.body.data.rol).toBe('client');
     });
   });
 

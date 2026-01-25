@@ -7,9 +7,7 @@ const { generateToken } = require('../utils/jwtUtils');
  */
 const register = async (req, res) => {
   try {
-    const {
-      nombre, email, password, rol = 'client',
-    } = req.body;
+    const { nombre, email, password } = req.body;
 
     // Verificar si el email ya existe
     const existingUser = await User.findByEmail(email);
@@ -20,12 +18,12 @@ const register = async (req, res) => {
       });
     }
 
-    // Crear nuevo usuario
+    // Crear nuevo usuario (rol siempre 'client' por seguridad)
     const newUser = await User.create({
       nombre,
       email,
       password,
-      rol,
+      rol: 'client',
     });
 
     return res.status(201).json({
