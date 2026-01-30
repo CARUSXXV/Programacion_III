@@ -1,0 +1,56 @@
+<section class="min-h-screen bg-dark py-20">
+  <div class="max-w-2xl mx-auto px-6">
+    <!-- Header -->
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold text-slate-100 mb-2">Mi Perfil</h1>
+      <p class="text-lg text-slate-400">Información de tu cuenta</p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="bg-dark-secondary border border-slate-700 rounded-2xl p-8 shadow-2xl">
+      <div id="profile-data" class="space-y-6">
+        <!-- Skeleton Loading -->
+        <div class="animate-pulse space-y-4">
+          <div class="h-12 bg-slate-800 rounded-lg"></div>
+          <div class="h-12 bg-slate-800 rounded-lg"></div>
+          <div class="h-12 bg-slate-800 rounded-lg"></div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 pt-8 border-t border-slate-700 flex gap-4">
+        <button class="flex-1 bg-primary hover:bg-primary-dark text-dark font-bold py-2 px-4 rounded-lg transition-all">
+          Editar Perfil
+        </button>
+        <button class="flex-1 border-2 border-slate-700 text-slate-100 hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg transition-all">
+          Cambiar Contraseña
+        </button>
+      </div>
+    </div>
+
+    <!-- Additional Info -->
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Orders -->
+      <div class="bg-dark-secondary border border-slate-700 rounded-xl p-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="text-3xl">📦</div>
+          <div>
+            <p class="text-slate-400 text-sm">Pedidos Realizados</p>
+            <p class="text-2xl font-bold text-slate-100">0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wishlist -->
+      <div class="bg-dark-secondary border border-slate-700 rounded-xl p-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="text-3xl">❤️</div>
+          <div>
+            <p class="text-slate-400 text-sm">Artículos Guardados</p>
+            <p class="text-2xl font-bold text-slate-100">0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

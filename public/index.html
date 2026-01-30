@@ -4,216 +4,590 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RetroVault - Tu Tienda de Videojuegos Clásicos</title>
-    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: '#10b981',
+                dark: '#059669',
+                light: '#d1fae5',
+              },
+              dark: {
+                DEFAULT: '#0f172a',
+                secondary: '#1e293b',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+      @layer components {
+        .btn-primary {
+          @apply bg-primary hover:bg-primary-dark text-dark font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20;
+        }
+        
+        .btn-secondary {
+          @apply border-2 border-primary text-primary hover:bg-primary hover:text-dark font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5;
+        }
+
+        .nav-link {
+          @apply text-slate-400 hover:text-primary font-medium transition-colors duration-300;
+        }
+
+        .auth-card {
+          @apply bg-dark-secondary border border-slate-800 p-8 rounded-xl shadow-2xl w-full max-w-md;
+        }
+
+        .form-input {
+          @apply w-full bg-dark border border-slate-700 rounded-lg px-4 py-2 text-slate-100 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all;
+        }
+      }
+    </style>
 </head>
-<body>
-    <!-- NAVEGACIÓN -->
-    <header class="header" id="header">
-        <nav class="navbar">
-            <div class="navbar-container">
-                <div class="logo">
-                    <h1>RetroVault</h1>
-                    <span class="tagline">Colecciona Historia</span>
-                </div>
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="guest-only"><a href="#" id="nav-login" class="nav-link">Iniciar Sesión</a></li>
-                    <li class="guest-only"><a href="#" id="nav-register" class="nav-link nav-link-cta">Registrarse</a></li>
-                    <li class="auth-only" style="display:none;"><a href="#" id="nav-dashboard" class="nav-link">Dashboard</a></li>
-                    <li class="auth-only" style="display:none;"><a href="#" id="nav-profile" class="nav-link">Perfil</a></li>
-                    <li class="auth-only" style="display:none;"><a href="#" id="btn-logout" class="nav-link nav-link-logout">Cerrar Sesión</a></li>
-                </ul>
-            </div>
-        </nav>
+<body class="bg-dark text-slate-100 font-sans">
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-dark-secondary border-b border-slate-800">
+      <nav class="max-w-6xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <div class="flex flex-col gap-1">
+            <h1 class="text-2xl font-bold text-primary tracking-tight">RetroVault</h1>
+            <span class="text-xs text-slate-400 font-medium">Colecciona Historia</span>
+          </div>
+
+          <!-- Navigation Menu -->
+          <ul class="flex gap-6 items-center" id="nav-menu">
+            <!-- Guest Links -->
+            <li class="guest-only">
+              <a href="#" id="nav-login" class="nav-link">Iniciar Sesión</a>
+            </li>
+            <li class="guest-only">
+              <a href="#" id="nav-register" class="nav-link bg-primary text-dark font-semibold px-4 py-2 rounded-lg hover:bg-primary-dark transition-all">
+                Registrarse
+              </a>
+            </li>
+
+            <!-- Auth Links -->
+            <li class="auth-only hidden">
+              <a href="#" id="nav-dashboard" class="nav-link">Dashboard</a>
+            </li>
+            <li class="auth-only hidden">
+              <a href="#" id="nav-profile" class="nav-link">Perfil</a>
+            </li>
+            <li class="auth-only hidden">
+              <a href="#" id="btn-logout" class="nav-link text-red-400 hover:text-red-300">Cerrar Sesión</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main id="main-content">
-        <!-- LANDING PAGE -->
-        <section id="landing-view" class="view">
-            <!-- HERO SECTION -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h2 class="hero-title">Bienvenido a RetroVault</h2>
-                    <p class="hero-subtitle">Descubre la colección más completa de videojuegos clásicos, hardware original y coleccionables de época</p>
-                    <div class="hero-cta">
-                        <button id="btn-hero-register" class="btn btn-primary">Comenzar Ahora</button>
-                        <button id="btn-hero-login" class="btn btn-secondary">Ya tengo cuenta</button>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="hero-placeholder">🎮</div>
-                </div>
-            </section>
+      <!-- LANDING PAGE -->
+      <section id="landing-view" class="view">
+        <!-- Hero Section -->
+        <section class="min-h-screen bg-gradient-to-b from-dark to-dark-secondary flex items-center justify-center px-6 py-20">
+          <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Content -->
+            <div class="space-y-8">
+              <div class="space-y-4">
+                <h1 class="text-5xl lg:text-6xl font-bold text-slate-100 leading-tight">
+                  Bienvenido a <span class="text-primary">RetroVault</span>
+                </h1>
+                <p class="text-xl text-slate-400 leading-relaxed">
+                  Descubre la colección más completa de videojuegos clásicos, hardware original y coleccionables de época. Revive la magia de los 80s y 90s.
+                </p>
+              </div>
 
-            <!-- FEATURES SECTION -->
-            <section class="features">
-                <div class="container">
-                    <h2 class="section-title">¿Por qué elegir RetroVault?</h2>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">📦</div>
-                            <h3>Software Auténtico</h3>
-                            <p>Juegos originales en cartucho y disco para NES, SNES, PS1 y más consolas clásicas</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🖥️</div>
-                            <h3>Hardware Original</h3>
-                            <p>Consolas restauradas y modificadas con garantía de calidad y funcionamiento</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">📚</div>
-                            <h3>Coleccionables Raros</h3>
-                            <p>Manuales, guías de estrategia y revistas de época en excelente estado</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">✅</div>
-                            <h3>Garantía de Autenticidad</h3>
-                            <p>Todos nuestros productos son verificados y certificados como auténticos</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🚚</div>
-                            <h3>Envío Seguro</h3>
-                            <p>Empaque profesional y envío asegurado para proteger tus adquisiciones</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">💬</div>
-                            <h3>Comunidad Activa</h3>
-                            <p>Conecta con otros coleccionistas y comparte tu pasión por los juegos clásicos</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+              <!-- CTA Buttons -->
+              <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button id="btn-hero-register" class="btn-primary">
+                  Comenzar Ahora
+                </button>
+                <button id="btn-hero-login" class="btn-secondary">
+                  Ya tengo cuenta
+                </button>
+              </div>
 
-            <!-- CATEGORIES PREVIEW -->
-            <section class="categories-preview">
-                <div class="container">
-                    <h2 class="section-title">Nuestras Categorías</h2>
-                    <div class="categories-grid">
-                        <div class="category-preview-card">
-                            <div class="category-icon">💾</div>
-                            <h3>Software</h3>
-                            <p>Juegos en cartucho y disco</p>
-                        </div>
-                        <div class="category-preview-card">
-                            <div class="category-icon">🕹️</div>
-                            <h3>Hardware</h3>
-                            <p>Consolas y accesorios</p>
-                        </div>
-                        <div class="category-preview-card">
-                            <div class="category-icon">🎁</div>
-                            <h3>Coleccionables</h3>
-                            <p>Manuales y memorabilia</p>
-                        </div>
-                    </div>
+              <!-- Stats -->
+              <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800">
+                <div>
+                  <p class="text-3xl font-bold text-primary">500+</p>
+                  <p class="text-sm text-slate-400">Productos</p>
                 </div>
-            </section>
-
-            <!-- CTA FINAL -->
-            <section class="cta-final">
-                <div class="container">
-                    <h2>¿Listo para explorar?</h2>
-                    <p>Únete a RetroVault y descubre piezas únicas de la historia de los videojuegos</p>
-                    <button id="btn-cta-register" class="btn btn-primary">Crear Cuenta Gratis</button>
+                <div>
+                  <p class="text-3xl font-bold text-primary">1K+</p>
+                  <p class="text-sm text-slate-400">Clientes</p>
                 </div>
-            </section>
-        </section>
-
-        <!-- LOGIN VIEW -->
-        <section id="login-view" class="view" style="display:none;">
-            <div class="auth-container">
-                <div class="auth-card">
-                    <h2>Iniciar Sesión</h2>
-                    <form id="login-form">
-                        <div class="form-group">
-                            <label for="login-email">Email</label>
-                            <input type="email" id="login-email" required placeholder="tu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password">Contraseña</label>
-                            <input type="password" id="login-password" required placeholder="••••••••">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                    </form>
-                    <p id="login-message" class="message"></p>
-                    <p class="auth-footer">¿No tienes cuenta? <a href="#" id="link-register">Regístrate aquí</a></p>
+                <div>
+                  <p class="text-3xl font-bold text-primary">99%</p>
+                  <p class="text-sm text-slate-400">Satisfacción</p>
                 </div>
+              </div>
             </div>
+
+            <!-- Image/Illustration -->
+            <div class="flex justify-center items-center">
+              <div class="text-9xl opacity-70">🎮</div>
+            </div>
+          </div>
         </section>
 
-        <!-- REGISTER VIEW -->
-        <section id="register-view" class="view" style="display:none;">
-            <div class="auth-container">
-                <div class="auth-card">
-                    <h2>Crear Cuenta</h2>
-                    <form id="register-form">
-                        <div class="form-group">
-                            <label for="reg-nombre">Nombre Completo</label>
-                            <input type="text" id="reg-nombre" required placeholder="Tu nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="reg-email">Email</label>
-                            <input type="email" id="reg-email" required placeholder="tu@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="reg-password">Contraseña</label>
-                            <input type="password" id="reg-password" required placeholder="Mín. 6 caracteres">
-                            <small>Debe contener mayúscula, minúscula y número</small>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
-                    </form>
-                    <p id="register-message" class="message"></p>
-                    <p class="auth-footer">¿Ya tienes cuenta? <a href="#" id="link-login">Inicia sesión aquí</a></p>
-                </div>
+        <!-- Features Section -->
+        <section class="py-20 bg-dark-secondary border-y border-slate-800">
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+              <h2 class="text-4xl font-bold text-slate-100 mb-4">¿Por qué elegir RetroVault?</h2>
+              <p class="text-lg text-slate-400">Somos líderes en coleccionismo de videojuegos clásicos con garantía de autenticidad</p>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <!-- Feature 1 -->
+              <div class="group p-8 rounded-xl bg-dark border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div class="text-4xl mb-4">📦</div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">Software Auténtico</h3>
+                <p class="text-slate-400">Juegos originales en cartucho y disco para NES, SNES, PS1 y más consolas clásicas</p>
+              </div>
+
+              <!-- Feature 2 -->
+              <div class="group p-8 rounded-xl bg-dark border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div class="text-4xl mb-4">🖥️</div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">Hardware Original</h3>
+                <p class="text-slate-400">Consolas restauradas y modificadas con garantía de calidad y funcionamiento</p>
+              </div>
+
+              <!-- Feature 3 -->
+              <div class="group p-8 rounded-xl bg-dark border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">Coleccionables Raros</h3>
+                <p class="text-slate-400">Manuales, guías de estrategia y revistas de época en excelente estado</p>
+              </div>
+
+              <!-- Feature 4 -->
+              <div class="group p-8 rounded-xl bg-dark border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div class="text-4xl mb-4">✅</div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">Garantía de Autenticidad</h3>
+                <p class="text-slate-400">Todos nuestros productos son verificados y certificados como auténticos</p>
+              </div>
+
+              <!-- Feature 5 -->
+              <div class="group p-8 rounded-xl bg-dark border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div class="text-4xl mb-4">🚚</div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">Envío Seguro</h3>
+                <p class="text-slate-400">Empaque profesional y envío asegurado para proteger tus adquisiciones</p>
+              </div>
+
+              <!-- Feature 6 -->
+              <div class="group p-8 rounded-xl bg-dark border border-slate-800 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div class="text-4xl mb-4">💬</div>
+                <h3 class="text-xl font-bold text-slate-100 mb-2">Comunidad Activa</h3>
+                <p class="text-slate-400">Conecta con otros coleccionistas y comparte tu pasión por los juegos clásicos</p>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <!-- DASHBOARD VIEW -->
-        <section id="dashboard-view" class="view" style="display:none;">
-            <div class="container">
-                <h2 class="page-title">Catálogo de Productos</h2>
-                <div class="categories-grid-full">
-                    <div class="category-card-full">
-                        <div class="category-header">💾</div>
-                        <h3>Software</h3>
-                        <p>Juegos físicos en cartucho o disco (NES, SNES, PS1, etc.)</p>
-                        <button class="btn btn-secondary btn-small">Explorar</button>
-                    </div>
-                    <div class="category-card-full">
-                        <div class="category-header">🖥️</div>
-                        <h3>Hardware</h3>
-                        <p>Consolas originales y modificadas (GameBoy, Sega Genesis, etc.)</p>
-                        <button class="btn btn-secondary btn-small">Explorar</button>
-                    </div>
-                    <div class="category-card-full">
-                        <div class="category-header">🎁</div>
-                        <h3>Coleccionables</h3>
-                        <p>Manuales, guías de estrategia y revistas de época</p>
-                        <button class="btn btn-secondary btn-small">Explorar</button>
-                    </div>
-                </div>
+        <!-- Categories Preview -->
+        <section class="py-20 bg-dark">
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+              <h2 class="text-4xl font-bold text-slate-100 mb-4">Nuestras Categorías</h2>
+              <p class="text-lg text-slate-400">Explora nuestro amplio catálogo de productos</p>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Software -->
+              <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-slate-800 p-8 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/10 transition-all duration-300"></div>
+                <div class="relative z-10">
+                  <div class="text-6xl mb-6">💾</div>
+                  <h3 class="text-2xl font-bold text-slate-100 mb-3">Software</h3>
+                  <p class="text-slate-400 mb-6">Juegos físicos en cartucho o disco (NES, SNES, PS1, etc.)</p>
+                  <button class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    Explorar
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hardware -->
+              <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-900/20 to-purple-900/5 border border-slate-800 p-8 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/10 transition-all duration-300"></div>
+                <div class="relative z-10">
+                  <div class="text-6xl mb-6">🖥️</div>
+                  <h3 class="text-2xl font-bold text-slate-100 mb-3">Hardware</h3>
+                  <p class="text-slate-400 mb-6">Consolas originales y modificadas (GameBoy, Sega Genesis, etc.)</p>
+                  <button class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    Explorar
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Coleccionables -->
+              <div class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-amber-900/20 to-amber-900/5 border border-slate-800 p-8 hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/10 transition-all duration-300"></div>
+                <div class="relative z-10">
+                  <div class="text-6xl mb-6">🎁</div>
+                  <h3 class="text-2xl font-bold text-slate-100 mb-3">Coleccionables</h3>
+                  <p class="text-slate-400 mb-6">Manuales, guías de estrategia y revistas de época</p>
+                  <button class="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
+                    Explorar
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
-        <!-- PROFILE VIEW -->
-        <section id="profile-view" class="view" style="display:none;">
-            <div class="container">
-                <div class="profile-card">
-                    <h2>Mi Perfil</h2>
-                    <div id="profile-data" class="profile-content">
-                        <!-- Datos cargados por JS -->
-                    </div>
-                </div>
-            </div>
+        <!-- CTA Final -->
+        <section class="py-20 bg-gradient-to-r from-primary to-primary-dark">
+          <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold text-dark mb-6">¿Listo para explorar?</h2>
+            <p class="text-lg text-dark/80 mb-8">
+              Únete a RetroVault y descubre piezas únicas de la historia de los videojuegos. Acceso a colecciones exclusivas y comunidad de coleccionistas.
+            </p>
+            <button id="btn-cta-register" class="inline-flex items-center gap-2 bg-dark text-primary font-bold py-3 px-8 rounded-lg hover:bg-slate-900 transition-all transform hover:scale-105">
+              Crear Cuenta Gratis
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </button>
+          </div>
         </section>
+      </section>
+
+      <!-- LOGIN VIEW -->
+      <section id="login-view" class="view hidden">
+        <section class="min-h-screen bg-gradient-to-b from-dark to-dark-secondary flex items-center justify-center px-6 py-20">
+          <div class="auth-card">
+            <div class="mb-8">
+              <h2 class="text-3xl font-bold text-slate-100 mb-2">Iniciar Sesión</h2>
+              <p class="text-slate-400">Accede a tu cuenta RetroVault</p>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+              <!-- Email -->
+              <div>
+                <label for="login-email" class="block text-sm font-semibold text-slate-100 mb-2">Email</label>
+                <input 
+                  type="email" 
+                  id="login-email" 
+                  required 
+                  placeholder="tu@email.com"
+                  class="form-input"
+                >
+              </div>
+
+              <!-- Password -->
+              <div>
+                <label for="login-password" class="block text-sm font-semibold text-slate-100 mb-2">Contraseña</label>
+                <input 
+                  type="password" 
+                  id="login-password" 
+                  required 
+                  placeholder="••••••••"
+                  class="form-input"
+                >
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn-primary w-full">
+                Entrar
+              </button>
+            </form>
+
+            <!-- Message -->
+            <p id="login-message" class="mt-6 p-4 rounded-lg text-center text-sm hidden"></p>
+
+            <!-- Footer -->
+            <p class="text-center text-slate-400 mt-6">
+              ¿No tienes cuenta? 
+              <a href="#" id="link-register" class="text-primary font-semibold hover:text-primary-light transition-colors">
+                Regístrate aquí
+              </a>
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <!-- REGISTER VIEW -->
+      <section id="register-view" class="view hidden">
+        <section class="min-h-screen bg-gradient-to-b from-dark to-dark-secondary flex items-center justify-center px-6 py-20">
+          <div class="auth-card">
+            <div class="mb-8">
+              <h2 class="text-3xl font-bold text-slate-100 mb-2">Crear Cuenta</h2>
+              <p class="text-slate-400">Únete a la comunidad de RetroVault</p>
+            </div>
+
+            <form id="register-form" class="space-y-6">
+              <!-- Full Name -->
+              <div>
+                <label for="reg-nombre" class="block text-sm font-semibold text-slate-100 mb-2">Nombre Completo</label>
+                <input 
+                  type="text" 
+                  id="reg-nombre" 
+                  required 
+                  placeholder="Tu nombre"
+                  class="form-input"
+                >
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="reg-email" class="block text-sm font-semibold text-slate-100 mb-2">Email</label>
+                <input 
+                  type="email" 
+                  id="reg-email" 
+                  required 
+                  placeholder="tu@email.com"
+                  class="form-input"
+                >
+              </div>
+
+              <!-- Password -->
+              <div>
+                <label for="reg-password" class="block text-sm font-semibold text-slate-100 mb-2">Contraseña</label>
+                <input 
+                  type="password" 
+                  id="reg-password" 
+                  required 
+                  placeholder="Mín. 6 caracteres"
+                  class="form-input"
+                >
+                <p class="text-xs text-slate-400 mt-2">Debe contener mayúscula, minúscula y número</p>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn-primary w-full">
+                Registrarse
+              </button>
+            </form>
+
+            <!-- Message -->
+            <p id="register-message" class="mt-6 p-4 rounded-lg text-center text-sm hidden"></p>
+
+            <!-- Footer -->
+            <p class="text-center text-slate-400 mt-6">
+              ¿Ya tienes cuenta? 
+              <a href="#" id="link-login" class="text-primary font-semibold hover:text-primary-light transition-colors">
+                Inicia sesión aquí
+              </a>
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <!-- DASHBOARD VIEW -->
+      <section id="dashboard-view" class="view hidden">
+        <section class="min-h-screen bg-dark py-20">
+          <div class="max-w-6xl mx-auto px-6">
+            <!-- Header -->
+            <div class="mb-16">
+              <h1 class="text-4xl font-bold text-slate-100 mb-2">Catálogo de Productos</h1>
+              <p class="text-lg text-slate-400">Explora nuestras categorías disponibles</p>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Software Category -->
+              <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 p-8 hover:border-primary transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="relative z-10">
+                  <div class="text-7xl mb-6 transform group-hover:scale-110 transition-transform duration-300">💾</div>
+                  
+                  <h3 class="text-2xl font-bold text-slate-100 mb-3">Software</h3>
+                  <p class="text-slate-400 mb-6 leading-relaxed">
+                    Juegos físicos en cartucho o disco para NES, SNES, PS1 y más consolas clásicas. Todos verificados y auténticos.
+                  </p>
+                  
+                  <button class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-dark font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105">
+                    Explorar Catálogo
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hardware Category -->
+              <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 p-8 hover:border-primary transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="relative z-10">
+                  <div class="text-7xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🖥️</div>
+                  
+                  <h3 class="text-2xl font-bold text-slate-100 mb-3">Hardware</h3>
+                  <p class="text-slate-400 mb-6 leading-relaxed">
+                    Consolas originales y modificadas con garantía de calidad. GameBoy, Sega Genesis, Nintendo 64 y más.
+                  </p>
+                  
+                  <button class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-dark font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105">
+                    Explorar Catálogo
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Collectibles Category -->
+              <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 p-8 hover:border-primary transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-2xl hover:shadow-primary/20">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                <div class="relative z-10">
+                  <div class="text-7xl mb-6 transform group-hover:scale-110 transition-transform duration-300">🎁</div>
+                  
+                  <h3 class="text-2xl font-bold text-slate-100 mb-3">Coleccionables</h3>
+                  <p class="text-slate-400 mb-6 leading-relaxed">
+                    Manuales, guías de estrategia y revistas de época en excelente estado. Piezas raras y únicas.
+                  </p>
+                  
+                  <button class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-dark font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105">
+                    Explorar Catálogo
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- PROFILE VIEW -->
+      <section id="profile-view" class="view hidden">
+        <section class="min-h-screen bg-dark py-20">
+          <div class="max-w-2xl mx-auto px-6">
+            <!-- Header -->
+            <div class="mb-12">
+              <h1 class="text-4xl font-bold text-slate-100 mb-2">Mi Perfil</h1>
+              <p class="text-lg text-slate-400">Información de tu cuenta</p>
+            </div>
+
+            <!-- Profile Card -->
+            <div class="bg-dark-secondary border border-slate-700 rounded-2xl p-8 shadow-2xl">
+              <div id="profile-data" class="space-y-6">
+                <!-- Skeleton Loading -->
+                <div class="animate-pulse space-y-4">
+                  <div class="h-12 bg-slate-800 rounded-lg"></div>
+                  <div class="h-12 bg-slate-800 rounded-lg"></div>
+                  <div class="h-12 bg-slate-800 rounded-lg"></div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="mt-8 pt-8 border-t border-slate-700 flex gap-4">
+                <button class="flex-1 bg-primary hover:bg-primary-dark text-dark font-bold py-2 px-4 rounded-lg transition-all">
+                  Editar Perfil
+                </button>
+                <button class="flex-1 border-2 border-slate-700 text-slate-100 hover:border-primary hover:text-primary font-bold py-2 px-4 rounded-lg transition-all">
+                  Cambiar Contraseña
+                </button>
+              </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Orders -->
+              <div class="bg-dark-secondary border border-slate-700 rounded-xl p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="text-3xl">📦</div>
+                  <div>
+                    <p class="text-slate-400 text-sm">Pedidos Realizados</p>
+                    <p class="text-2xl font-bold text-slate-100">0</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Wishlist -->
+              <div class="bg-dark-secondary border border-slate-700 rounded-xl p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="text-3xl">❤️</div>
+                  <div>
+                    <p class="text-slate-400 text-sm">Artículos Guardados</p>
+                    <p class="text-2xl font-bold text-slate-100">0</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 RetroVault. Todos los derechos reservados.</p>
+    <!-- Footer -->
+    <footer class="bg-dark-secondary border-t border-slate-800">
+      <div class="max-w-6xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <!-- Brand -->
+          <div>
+            <h3 class="text-lg font-bold text-primary mb-4">RetroVault</h3>
+            <p class="text-slate-400 text-sm">Tu tienda de confianza para videojuegos clásicos y coleccionables.</p>
+          </div>
+
+          <!-- Links -->
+          <div>
+            <h4 class="font-semibold text-slate-100 mb-4">Categorías</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li><a href="#" class="hover:text-primary transition-colors">Software</a></li>
+              <li><a href="#" class="hover:text-primary transition-colors">Hardware</a></li>
+              <li><a href="#" class="hover:text-primary transition-colors">Coleccionables</a></li>
+            </ul>
+          </div>
+
+          <!-- Support -->
+          <div>
+            <h4 class="font-semibold text-slate-100 mb-4">Soporte</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li><a href="#" class="hover:text-primary transition-colors">Contacto</a></li>
+              <li><a href="#" class="hover:text-primary transition-colors">FAQ</a></li>
+              <li><a href="#" class="hover:text-primary transition-colors">Envíos</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal -->
+          <div>
+            <h4 class="font-semibold text-slate-100 mb-4">Legal</h4>
+            <ul class="space-y-2 text-sm text-slate-400">
+              <li><a href="#" class="hover:text-primary transition-colors">Privacidad</a></li>
+              <li><a href="#" class="hover:text-primary transition-colors">Términos</a></li>
+              <li><a href="#" class="hover:text-primary transition-colors">Cookies</a></li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Divider -->
+        <div class="border-t border-slate-800 pt-8">
+          <p class="text-center text-slate-400 text-sm">
+            &copy; 2026 RetroVault. Todos los derechos reservados. Desarrollado para Programación III.
+          </p>
+        </div>
+      </div>
     </footer>
 
     <script src="js/main.js"></script>
