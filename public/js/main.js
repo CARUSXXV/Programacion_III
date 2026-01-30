@@ -1,57 +1,3 @@
-<<<<<<< HEAD
-document.addEventListener('DOMContentLoaded', () => {
-  // Elementos de navegación
-  const navLogin = document.getElementById('nav-login');
-  const navRegister = document.getElementById('nav-register');
-  const navDashboard = document.getElementById('nav-dashboard');
-  const navProfile = document.getElementById('nav-profile');
-  const btnLogout = document.getElementById('btn-logout');
-
-  // Botones de la landing page
-  const btnHeroRegister = document.getElementById('btn-hero-register');
-  const btnHeroLogin = document.getElementById('btn-hero-login');
-  const btnCtaRegister = document.getElementById('btn-cta-register');
-
-  // Links de autenticación
-  const linkRegister = document.getElementById('link-register');
-  const linkLogin = document.getElementById('link-login');
-
-  // Vistas
-  const views = {
-    landing: document.getElementById('landing-view'),
-    login: document.getElementById('login-view'),
-    register: document.getElementById('register-view'),
-    dashboard: document.getElementById('dashboard-view'),
-    profile: document.getElementById('profile-view'),
-  };
-
-  // Formularios
-  const loginForm = document.getElementById('login-form');
-  const registerForm = document.getElementById('register-form');
-
-  // Mensajes
-  const loginMsg = document.getElementById('login-message');
-  const registerMsg = document.getElementById('register-message');
-
-  /**
-   * Función para cambiar de vista
-   * @param {string} viewName - Nombre de la vista a mostrar
-   */
-  function showView(viewName) {
-    Object.values(views).forEach((v) => {
-      if (v) v.classList.add('hidden');
-    });
-    
-    const targetView = views[viewName];
-    if (targetView) {
-      targetView.classList.remove('hidden');
-    }
-
-    if (viewName === 'profile') {
-      loadProfile();
-    }
-
-=======
 /**
  * Sistema de gestión de componentes dinámicos para RetroVault
  * Carga componentes HTML de forma modular y gestiona la navegación
@@ -62,7 +8,7 @@ class ComponentManager {
     this.components = {
       navbar: 'components/navbar.html',
       footer: 'components/footer.html',
-      landing: 'components/hero.html',
+      hero: 'components/hero.html',
       features: 'components/features.html',
       categories: 'components/categories.html',
       cta: 'components/cta.html',
@@ -166,33 +112,19 @@ class ComponentManager {
       const html = await this.loadComponent(component);
       const section = document.createElement('section');
       section.innerHTML = html;
-      mainContent.appendChild(section.firstElementChild);
+      if (section.firstElementChild) {
+        mainContent.appendChild(section.firstElementChild);
+      }
     }
 
     this.currentView = viewName;
     this.attachViewListeners(viewName);
 
->>>>>>> 20db7c572b871325ea5caba36b390c34ba65dddf
     // Scroll al inicio suave
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   /**
-<<<<<<< HEAD
-   * Manejo de UI según estado de autenticación
-   */
-  function updateUI() {
-    const token = localStorage.getItem('token');
-    const guestElements = document.querySelectorAll('.guest-only');
-    const authElements = document.querySelectorAll('.auth-only');
-
-    if (token) {
-      guestElements.forEach((el) => el.classList.add('hidden'));
-      authElements.forEach((el) => el.classList.remove('hidden'));
-    } else {
-      guestElements.forEach((el) => el.classList.remove('hidden'));
-      authElements.forEach((el) => el.classList.add('hidden'));
-=======
    * Adjunta event listeners a la barra de navegación
    */
   attachNavbarListeners() {
@@ -215,127 +147,10 @@ class ComponentManager {
         this.updateNavbar();
         this.showView('landing');
       });
->>>>>>> 20db7c572b871325ea5caba36b390c34ba65dddf
     }
   }
 
   /**
-<<<<<<< HEAD
-   * Mostrar mensajes de feedback
-   */
-  function showMessage(element, text, type) {
-    element.textContent = text;
-    element.classList.remove('hidden', 'bg-red-900/20', 'text-red-400', 'border-red-900/30', 'bg-green-900/20', 'text-green-400', 'border-green-900/30');
-    
-    if (type === 'error') {
-      element.classList.add('bg-red-900/20', 'text-red-400', 'border', 'border-red-900/30');
-    } else {
-      element.classList.add('bg-green-900/20', 'text-green-400', 'border', 'border-green-900/30');
-    }
-    element.classList.remove('hidden');
-  }
-
-  // Event Listeners Navegación
-  if (navLogin) navLogin.addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
-  if (navRegister) navRegister.addEventListener('click', (e) => { e.preventDefault(); showView('register'); });
-  if (navDashboard) navDashboard.addEventListener('click', (e) => { e.preventDefault(); showView('dashboard'); });
-  if (navProfile) navProfile.addEventListener('click', (e) => { e.preventDefault(); showView('profile'); });
-
-  if (btnLogout) {
-    btnLogout.addEventListener('click', (e) => {
-      e.preventDefault();
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      updateUI();
-      showView('landing');
-    });
-  }
-
-  // Botones de la landing page
-  if (btnHeroRegister) btnHeroRegister.addEventListener('click', (e) => { e.preventDefault(); showView('register'); });
-  if (btnHeroLogin) btnHeroLogin.addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
-  if (btnCtaRegister) btnCtaRegister.addEventListener('click', (e) => { e.preventDefault(); showView('register'); });
-
-  // Links de autenticación
-  if (linkRegister) linkRegister.addEventListener('click', (e) => { e.preventDefault(); showView('register'); });
-  if (linkLogin) linkLogin.addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
-
-  // Lógica de Registro
-  if (registerForm) {
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      showMessage(registerMsg, 'Procesando registro...', 'info');
-
-      const userData = {
-        nombre: document.getElementById('reg-nombre').value,
-        email: document.getElementById('reg-email').value,
-        password: document.getElementById('reg-password').value,
-      };
-
-      try {
-        const response = await fetch('/api/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData),
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          showMessage(registerMsg, '¡Registro exitoso! Redirigiendo al login...', 'success');
-          registerForm.reset();
-          setTimeout(() => showView('login'), 1500);
-        } else {
-          let errorMsg = result.message || 'Error en el registro';
-          if (result.errors) {
-            errorMsg += `: ${result.errors.map((err) => err.mensaje).join(', ')}`;
-          }
-          showMessage(registerMsg, errorMsg, 'error');
-        }
-      } catch (error) {
-        showMessage(registerMsg, 'Error de conexión con el servidor', 'error');
-      }
-    });
-  }
-
-  // Lógica de Login
-  if (loginForm) {
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      showMessage(loginMsg, 'Iniciando sesión...', 'info');
-
-      const credentials = {
-        email: document.getElementById('login-email').value,
-        password: document.getElementById('login-password').value,
-      };
-
-      try {
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(credentials),
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          localStorage.setItem('token', result.data.token);
-          localStorage.setItem('user', JSON.stringify(result.data.user));
-          showMessage(loginMsg, '¡Bienvenido de nuevo!', 'success');
-          updateUI();
-          setTimeout(() => showView('dashboard'), 1000);
-        } else {
-          showMessage(loginMsg, result.message || 'Credenciales inválidas', 'error');
-        }
-      } catch (error) {
-        showMessage(loginMsg, 'Error de conexión con el servidor', 'error');
-      }
-    });
-  }
-
-  // Cargar Perfil
-  async function loadProfile() {
-=======
    * Adjunta event listeners específicos de cada vista
    * @param {string} viewName - Nombre de la vista actual
    */
@@ -473,16 +288,11 @@ class ComponentManager {
    * Carga y muestra el perfil del usuario
    */
   async loadProfile() {
->>>>>>> 20db7c572b871325ea5caba36b390c34ba65dddf
     const token = localStorage.getItem('token');
     const profileData = document.getElementById('profile-data');
 
     if (!token) {
-<<<<<<< HEAD
-      showView('login');
-=======
       this.showView('login');
->>>>>>> 20db7c572b871325ea5caba36b390c34ba65dddf
       return;
     }
 
@@ -535,13 +345,8 @@ class ComponentManager {
         `;
       } else {
         localStorage.removeItem('token');
-<<<<<<< HEAD
-        updateUI();
-        showView('login');
-=======
         this.updateNavbar();
         this.showView('login');
->>>>>>> 20db7c572b871325ea5caba36b390c34ba65dddf
       }
     } catch (error) {
       profileData.innerHTML = `
@@ -552,17 +357,6 @@ class ComponentManager {
     }
   }
 
-<<<<<<< HEAD
-  // Inicialización
-  updateUI();
-  
-  // Si hay un token, ir al dashboard, si no, a la landing
-  if (localStorage.getItem('token')) {
-    showView('dashboard');
-  } else {
-    showView('landing');
-  }
-=======
   /**
    * Muestra un mensaje de feedback
    */
@@ -619,5 +413,4 @@ class ComponentManager {
 // Inicializar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
   window.app = new ComponentManager();
->>>>>>> 20db7c572b871325ea5caba36b390c34ba65dddf
 });

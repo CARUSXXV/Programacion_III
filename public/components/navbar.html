@@ -1,35 +1,49 @@
-<header class="sticky top-0 z-50 bg-dark-secondary border-b border-slate-800">
-  <nav class="max-w-6xl mx-auto px-6 py-4">
-    <div class="flex justify-between items-center">
-      <!-- Logo -->
-      <div class="flex flex-col gap-1">
-        <h1 class="text-2xl font-bold text-primary tracking-tight">RetroVault</h1>
-        <span class="text-xs text-slate-400 font-medium">Colecciona Historia</span>
+<header class="sticky top-0 z-50 w-full border-b border-white/5 bg-slate-950/80 backdrop-blur-md">
+  <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    
+    <div class="flex items-center gap-3 group cursor-pointer">
+      <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)] group-hover:rotate-12 transition-transform duration-300">
+        <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+        </svg>
       </div>
+      <div class="flex flex-col">
+        <span class="text-xl font-black text-white tracking-tighter leading-none">RETRO<span class="text-primary">VAULT</span></span>
+      </div>
+    </div>
 
-      <!-- Navigation Menu -->
-      <ul class="flex gap-6 items-center" id="nav-menu">
-        <!-- Guest Links -->
+    <div class="flex items-center gap-8">
+
+      <ul class="flex items-center gap-3" id="nav-menu">
         <li class="guest-only">
-          <a href="#" id="nav-login" class="nav-link">Iniciar Sesión</a>
+          <a href="#" id="nav-login" class="text-sm font-bold text-slate-300 hover:text-white px-4 py-2 transition-colors">
+            Entrar
+          </a>
         </li>
         <li class="guest-only">
-          <a href="#" id="nav-register" class="nav-link bg-primary text-dark font-semibold px-4 py-2 rounded-lg hover:bg-primary-dark transition-all">
-            Registrarse
+          <a href="#" id="nav-register" class="text-sm font-bold bg-white text-slate-950 px-5 py-2.5 rounded-xl hover:bg-primary transition-all active:scale-95 shadow-lg">
+            Unirse
           </a>
         </li>
 
-        <!-- Auth Links -->
         <li class="auth-only hidden">
-          <a href="#" id="nav-dashboard" class="nav-link">Dashboard</a>
+          <a href="#" id="nav-dashboard" class="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-800 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            Panel
+          </a>
         </li>
         <li class="auth-only hidden">
-          <a href="#" id="nav-profile" class="nav-link">Perfil</a>
+          <a href="#" id="nav-profile" class="w-9 h-9 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center hover:border-primary transition-all overflow-hidden">
+            <img src="https://ui-avatars.com/api/?name=User&bg=0f172a&color=fff" alt="Perfil" class="w-full h-full object-cover">
+          </a>
         </li>
-        <li class="auth-only hidden">
-          <a href="#" id="btn-logout" class="nav-link text-red-400 hover:text-red-300">Cerrar Sesión</a>
+        <li class="auth-only hidden ml-2">
+          <button id="btn-logout" class="p-2 text-slate-500 hover:text-red-400 transition-colors" title="Cerrar Sesión">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+          </button>
         </li>
       </ul>
     </div>
+
   </nav>
 </header>
