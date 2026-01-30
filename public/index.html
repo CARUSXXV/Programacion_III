@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroVault - Tu Tienda de Videojuegos Clásicos</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: '#10b981',
+                dark: '#059669',
+                light: '#d1fae5',
+              },
+              dark: {
+                DEFAULT: '#0f172a',
+                secondary: '#1e293b',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+      @layer components {
+        .btn-primary {
+          @apply bg-primary hover:bg-primary-dark text-dark font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20;
+        }
+        
+        .btn-secondary {
+          @apply border-2 border-primary text-primary hover:bg-primary hover:text-dark font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5;
+        }
+
+        .nav-link {
+          @apply text-slate-400 hover:text-primary font-medium transition-colors duration-300;
+        }
+
+        .auth-card {
+          @apply bg-dark-secondary border border-slate-800 p-8 rounded-xl shadow-2xl w-full max-w-md;
+        }
+
+        .form-input {
+          @apply w-full bg-dark border border-slate-700 rounded-lg px-4 py-2 text-slate-100 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all;
+        }
+      }
+    </style>
+</head>
+<body class="bg-dark text-slate-100 font-sans">
+    <!-- Navbar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content Container -->
+    <main id="main-content">
+      <!-- Las vistas se cargarán dinámicamente aquí -->
+    </main>
+
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
