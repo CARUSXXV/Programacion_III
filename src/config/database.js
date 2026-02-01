@@ -43,11 +43,29 @@ const initDatabase = () => new Promise((resolve, reject) => {
   database.run(createUsersTable, (err) => {
     if (err) {
       console.error('❌ Error al crear tabla users:', err.message);
-      reject(err);
-    } else {
-      console.log('✅ Tabla users verificada/creada correctamente');
-      resolve();
+      return reject(err);
     }
+    console.log('✅ Tabla users verificada/creada correctamente');
+
+    const createProductsTable = `
+      CREATE TABLE IF NOT EXISTS products (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        codigo TEXT NOT NULL UNIQUE,
+        precio REAL NOT NULL CHECK(precio > 0),
+        descripcion TEXT,
+        created_at TEXT NOT NULL DEFAULT (datetime('now'))
+      )
+    `;
+
+    database.run(createProductsTable, (errProd) => {
+      if (errProd) {
+        console.error('❌ Error al crear tabla products:', errProd.message);
+        return reject(errProd);
+      }
+      console.log('✅ Tabla products verificada/creada correctamente');
+      resolve();
+    });
   });
 });
 

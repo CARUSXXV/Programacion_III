@@ -74,8 +74,42 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
+/**
+ * Reglas de validación para la creación de productos
+ */
+const validateProduct = [
+  body('nombre')
+    .trim()
+    .notEmpty()
+    .withMessage('El nombre del producto es obligatorio')
+    .isLength({ min: 3, max: 100 })
+    .withMessage('El nombre debe tener entre 3 y 100 caracteres'),
+
+  body('codigo')
+    .trim()
+    .notEmpty()
+    .withMessage('El código del producto es obligatorio')
+    .isAlphanumeric()
+    .withMessage('El código debe ser alfanumérico'),
+
+  body('precio')
+    .notEmpty()
+    .withMessage('El precio es obligatorio')
+    .isFloat({ gt: 0 })
+    .withMessage('El precio debe ser un número mayor a 0'),
+
+  body('descripcion')
+    .optional()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('La descripción no puede exceder los 500 caracteres'),
+
+  handleValidationErrors,
+];
+
 module.exports = {
   validateRegister,
   validateLogin,
+  validateProduct,
   handleValidationErrors,
 };

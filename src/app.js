@@ -14,8 +14,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Rutas de la API
 const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 // Ruta de bienvenida de la API (solo si no se encuentra un archivo estático)
 app.get('/api', (req, res) => {
@@ -28,6 +30,11 @@ app.get('/api', (req, res) => {
         register: 'POST /api/auth/register',
         login: 'POST /api/auth/login',
         perfil: 'GET /api/auth/perfil (requiere token)',
+      },
+      products: {
+        getAll: 'GET /api/products (requiere token)',
+        getByCodigo: 'GET /api/products/:codigo (requiere token)',
+        create: 'POST /api/products (requiere token admin)',
       },
     },
   });
