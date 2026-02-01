@@ -16,9 +16,11 @@ class ComponentManager {
       register: 'components/register-form.html',
       dashboard: 'components/dashboard.html',
       profile: 'components/profile.html',
+      productsList: 'components/products-list.html',
     };
 
     this.currentView = null;
+    this.productManager = new ProductManager(this);
     this.init();
   }
 
@@ -103,6 +105,9 @@ class ComponentManager {
       case 'profile':
         componentsToLoad = ['profile'];
         break;
+      case 'products':
+        componentsToLoad = ['productsList'];
+        break;
       default:
         componentsToLoad = ['hero', 'features', 'categories', 'cta'];
     }
@@ -163,6 +168,8 @@ class ComponentManager {
       this.attachRegisterListeners();
     } else if (viewName === 'profile') {
       this.loadProfile();
+    } else if (viewName === 'products') {
+      this.productManager.loadProducts();
     }
   }
 
