@@ -7,7 +7,7 @@ const Product = require('../models/Product');
 const createProduct = async (req, res) => {
   try {
     const {
-      nombre, codigo, precio, descripcion,
+      nombre, codigo, precio, descripcion, categoria,
     } = req.body;
 
     // Verificar si el código ya existe
@@ -25,6 +25,7 @@ const createProduct = async (req, res) => {
       codigo,
       precio,
       descripcion,
+      categoria,
     });
 
     return res.status(201).json({
@@ -48,7 +49,8 @@ const createProduct = async (req, res) => {
  */
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.findAll();
+    const { category } = req.query;
+    const products = await Product.findAll({ category });
     return res.status(200).json({
       success: true,
       data: products,

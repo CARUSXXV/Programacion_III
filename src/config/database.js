@@ -54,6 +54,7 @@ const initDatabase = () => new Promise((resolve, reject) => {
         codigo TEXT NOT NULL UNIQUE,
         precio REAL NOT NULL CHECK(precio > 0),
         descripcion TEXT,
+        categoria TEXT NOT NULL CHECK(categoria IN ('juegos', 'consolas', 'coleccionables', 'otros')),
         created_at TEXT NOT NULL DEFAULT (datetime('now'))
       )
     `;

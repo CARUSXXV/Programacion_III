@@ -9,22 +9,15 @@ class ProductManager {
 
   /**
    * Carga y muestra la lista de productos
+   * @param {Object} params - Parámetros para filtrar productos, ej: { category: 'juegos' }
    */
-  async loadProducts() {
+  async loadProducts(params = {}) {
     const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
     const productsGrid = document.getElementById('products-grid');
 
     if (!token) {
       this.app.showView('login');
       return;
-    }
-
-    // Mostrar botón de crear producto solo si es admin
-    const btnCreateProduct = document.getElementById('btn-create-product');
-    if (user.rol === 'admin') {
-      btnCreateProduct.classList.remove('hidden');
-      btnCreateProduct.addEventListener('click', () => this.openProductModal());
     }
 
     // Mostrar skeleton loading
@@ -40,8 +33,13 @@ class ProductManager {
       </div>
     `;
 
+    let apiUrl = '/api/products';
+    if (params.category) {
+      apiUrl += `?category=${params.category}`;
+    }
+
     try {
-      const response = await fetch('/api/products', {
+      const response = await fetch(apiUrl, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -52,7 +50,7 @@ class ProductManager {
         productsGrid.innerHTML = products.map((product) => `
           <div class="bg-dark-secondary border border-slate-800 rounded-lg overflow-hidden hover:border-primary transition-all hover:shadow-lg hover:shadow-primary/10">
             <div class="bg-gradient-to-r from-primary/10 to-primary/5 h-32 flex items-center justify-center">
-              <span class="text-4xl font-bold text-primary/30">${product.codigo.charAt(0)}</span>
+              <span class="text-4xl font-bold text-primary/30">${product.nombre.charAt(0)}</span>
             </div>
             <div class="p-4">
               <h3 class="text-lg font-bold text-slate-100 mb-2">${product.nombre}</h3>
@@ -67,42 +65,27 @@ class ProductManager {
       } else {
         productsGrid.innerHTML = `
           <div class="col-span-full text-center py-12">
-            <p class="text-slate-400 text-lg">No hay productos disponibles aún</p>
+            <p class="text-slate-400 text-lg">No hay productos disponibles en esta categoría.</p>
           </div>
         `;
       }
     } catch (error) {
       productsGrid.innerHTML = `
         <div class="col-span-full text-center py-12">
-          <p class="text-red-400">Error al cargar los productos</p>
+          <p class="text-red-400">Error al cargar los productos.</p>
         </div>
       `;
     }
   }
 
   /**
-   * Abre el modal para crear un nuevo producto
-   */
-  openProductModal() {
-    const modal = document.getElementById('product-modal');
-    const form = document.getElementById('product-form');
-    const btnClose = document.getElementById('btn-close-modal');
-
-    modal.classList.remove('hidden');
-    form.reset();
-
-    form.addEventListener('submit', (e) => this.handleCreateProduct(e));
-    btnClose.addEventListener('click', () => modal.classList.add('hidden'));
-  }
-
-  /**
-   * Maneja la creación de un nuevo producto
+   * Maneja la creación de un nuevo producto desde el modal del dashboard
    */
   async handleCreateProduct(e) {
     e.preventDefault();
 
     const token = localStorage.getItem('token');
-    const productMsg = document.getElementById('product-message');
+    const productMsg = document.getElementById('add-product-message');
 
     this.app.showMessage(productMsg, 'Creando producto...', 'info');
 
@@ -111,6 +94,7 @@ class ProductManager {
       codigo: document.getElementById('prod-codigo').value,
       precio: parseFloat(document.getElementById('prod-precio').value),
       descripcion: document.getElementById('prod-descripcion').value,
+      categoria: document.getElementById('prod-categoria').value,
     };
 
     try {
@@ -127,10 +111,10 @@ class ProductManager {
 
       if (result.success) {
         this.app.showMessage(productMsg, '¡Producto creado exitosamente!', 'success');
-        document.getElementById('product-form').reset();
+        document.getElementById('add-product-form').reset();
         setTimeout(() => {
-          document.getElementById('product-modal').classList.add('hidden');
-          this.loadProducts();
+          document.getElementById('add-product-modal').classList.add('hidden');
+          this.app.showView('products', { category: productData.categoria });
         }, 1000);
       } else {
         let errorMsg = result.message || 'Error al crear el producto';

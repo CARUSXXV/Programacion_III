@@ -83,7 +83,7 @@ class ComponentManager {
    * Muestra una vista específica
    * @param {string} viewName - Nombre de la vista (landing, login, register, dashboard, profile)
    */
-  async showView(viewName) {
+  async showView(viewName, params = {}) {
     const mainContent = document.getElementById('main-content');
     mainContent.innerHTML = '';
 
@@ -122,10 +122,24 @@ class ComponentManager {
       }
     }
 
-    this.currentView = viewName;
-    this.attachViewListeners(viewName);
+    this.attachViewListeners(viewName, params);
+  }
 
-    // Scroll al inicio suave
+  /**
+   * Enrutador principal de la aplicación
+   */
+  router() {
+    const hash = window.location.hash.slice(1) || (localStorage.getItem('token') ? 'dashboard' : 'landing');
+    const [path, queryString] = hash.split('?');
+    
+    const params = new URLSearchParams(queryString);
+    const viewParams = Object.fromEntries(params.entries());
+
+    const validViews = Object.keys(this.components);
+    const viewName = validViews.includes(path) ? path : (localStorage.getItem('token') ? 'dashboard' : 'landing');
+    
+    this.currentView = viewName;
+    this.showView(viewName, viewParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -133,16 +147,21 @@ class ComponentManager {
    * Adjunta event listeners a la barra de navegación
    */
   attachNavbarListeners() {
+    document.getElementById('nav-logo').addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.hash = localStorage.getItem('token') ? 'dashboard' : 'landing';
+    });
+
     const navLogin = document.getElementById('nav-login');
     const navRegister = document.getElementById('nav-register');
     const navDashboard = document.getElementById('nav-dashboard');
     const navProfile = document.getElementById('nav-profile');
     const btnLogout = document.getElementById('btn-logout');
 
-    if (navLogin) navLogin.addEventListener('click', (e) => { e.preventDefault(); this.showView('login'); });
-    if (navRegister) navRegister.addEventListener('click', (e) => { e.preventDefault(); this.showView('register'); });
-    if (navDashboard) navDashboard.addEventListener('click', (e) => { e.preventDefault(); this.showView('dashboard'); });
-    if (navProfile) navProfile.addEventListener('click', (e) => { e.preventDefault(); this.showView('profile'); });
+    if (navLogin) navLogin.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'login'; });
+    if (navRegister) navRegister.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'register'; });
+    if (navDashboard) navDashboard.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'dashboard'; });
+    if (navProfile) navProfile.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'profile'; });
 
     if (btnLogout) {
       btnLogout.addEventListener('click', (e) => {
@@ -150,7 +169,7 @@ class ComponentManager {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.updateNavbar();
-        this.showView('landing');
+        window.location.hash = 'login';
       });
     }
   }
@@ -159,7 +178,7 @@ class ComponentManager {
    * Adjunta event listeners específicos de cada vista
    * @param {string} viewName - Nombre de la vista actual
    */
-  attachViewListeners(viewName) {
+  attachViewListeners(viewName, params = {}) {
     if (viewName === 'landing') {
       this.attachLandingListeners();
     } else if (viewName === 'login') {
@@ -168,9 +187,45 @@ class ComponentManager {
       this.attachRegisterListeners();
     } else if (viewName === 'profile') {
       this.loadProfile();
+    } else if (viewName === 'dashboard') {
+      this.attachDashboardListeners();
     } else if (viewName === 'products') {
-      this.productManager.loadProducts();
+      this.productManager.loadProducts(params);
     }
+  }
+
+  /**
+   * Adjunta los listeners para el dashboard
+   */
+  attachDashboardListeners() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const btnAddProduct = document.getElementById('btn-add-product');
+    
+    if (user && user.rol === 'admin') {
+      btnAddProduct.classList.remove('hidden');
+    }
+
+    const modal = document.getElementById('add-product-modal');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+    const btnCancelModal = document.getElementById('btn-cancel-modal');
+    const addProductForm = document.getElementById('add-product-form');
+
+    btnAddProduct.addEventListener('click', () => modal.classList.remove('hidden'));
+    btnCloseModal.addEventListener('click', () => modal.classList.add('hidden'));
+    btnCancelModal.addEventListener('click', () => modal.classList.add('hidden'));
+
+    addProductForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.productManager.handleCreateProduct(e);
+    });
+
+    const btnCatJuegos = document.getElementById('btn-cat-juegos');
+    const btnCatConsolas = document.getElementById('btn-cat-consolas');
+    const btnCatTodos = document.getElementById('btn-cat-todos');
+
+    if(btnCatJuegos) btnCatJuegos.addEventListener('click', () => window.location.hash = 'products?category=juegos');
+    if(btnCatConsolas) btnCatConsolas.addEventListener('click', () => window.location.hash = 'products?category=consolas');
+    if(btnCatTodos) btnCatTodos.addEventListener('click', () => window.location.hash = 'products');
   }
 
   /**
@@ -181,9 +236,9 @@ class ComponentManager {
     const btnHeroLogin = document.getElementById('btn-hero-login');
     const btnCtaRegister = document.getElementById('btn-cta-register');
 
-    if (btnHeroRegister) btnHeroRegister.addEventListener('click', (e) => { e.preventDefault(); this.showView('register'); });
-    if (btnHeroLogin) btnHeroLogin.addEventListener('click', (e) => { e.preventDefault(); this.showView('login'); });
-    if (btnCtaRegister) btnCtaRegister.addEventListener('click', (e) => { e.preventDefault(); this.showView('register'); });
+    if (btnHeroRegister) btnHeroRegister.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'register'; });
+    if (btnHeroLogin) btnHeroLogin.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'login'; });
+    if (btnCtaRegister) btnCtaRegister.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'register'; });
   }
 
   /**
@@ -193,7 +248,7 @@ class ComponentManager {
     const loginForm = document.getElementById('login-form');
     const linkRegister = document.getElementById('link-register');
 
-    if (linkRegister) linkRegister.addEventListener('click', (e) => { e.preventDefault(); this.showView('register'); });
+    if (linkRegister) linkRegister.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'register'; });
 
     if (loginForm) {
       loginForm.addEventListener('submit', (e) => this.handleLogin(e));
@@ -207,7 +262,7 @@ class ComponentManager {
     const registerForm = document.getElementById('register-form');
     const linkLogin = document.getElementById('link-login');
 
-    if (linkLogin) linkLogin.addEventListener('click', (e) => { e.preventDefault(); this.showView('login'); });
+    if (linkLogin) linkLogin.addEventListener('click', (e) => { e.preventDefault(); window.location.hash = 'login'; });
 
     if (registerForm) {
       registerForm.addEventListener('submit', (e) => this.handleRegister(e));
@@ -242,7 +297,7 @@ class ComponentManager {
         localStorage.setItem('user', JSON.stringify(result.data.user));
         this.showMessage(loginMsg, '¡Bienvenido de nuevo!', 'success');
         this.updateNavbar();
-        setTimeout(() => this.showView('dashboard'), 1000);
+        setTimeout(() => { window.location.hash = 'dashboard'; }, 1000);
       } else {
         this.showMessage(loginMsg, result.message || 'Credenciales inválidas', 'error');
       }
@@ -278,7 +333,7 @@ class ComponentManager {
       if (result.success) {
         this.showMessage(registerMsg, '¡Registro exitoso! Redirigiendo al login...', 'success');
         document.getElementById('register-form').reset();
-        setTimeout(() => this.showView('login'), 1500);
+        setTimeout(() => { window.location.hash = 'login'; }, 1500);
       } else {
         let errorMsg = result.message || 'Error en el registro';
         if (result.errors) {
@@ -299,7 +354,7 @@ class ComponentManager {
     const profileData = document.getElementById('profile-data');
 
     if (!token) {
-      this.showView('login');
+      window.location.hash = 'login';
       return;
     }
 
@@ -353,7 +408,7 @@ class ComponentManager {
       } else {
         localStorage.removeItem('token');
         this.updateNavbar();
-        this.showView('login');
+        window.location.hash = 'login';
       }
     } catch (error) {
       profileData.innerHTML = `
@@ -407,13 +462,11 @@ class ComponentManager {
     // Actualizar UI según estado de autenticación
     this.updateNavbar();
 
-    // Mostrar vista inicial
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.showView('dashboard');
-    } else {
-      this.showView('landing');
-    }
+    // Escuchar cambios en el hash para enrutamiento
+    window.addEventListener('hashchange', () => this.router());
+    
+    // Cargar la vista inicial basada en el hash
+    this.router();
   }
 }
 

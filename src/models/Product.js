@@ -7,13 +7,13 @@ class Product {
    * @returns {Promise<Object>} Producto creado
    */
   static async create({
-    nombre, codigo, precio, descripcion,
+    nombre, codigo, precio, descripcion, categoria,
   }) {
     return new Promise((resolve, reject) => {
       const db = getDatabase();
-      const sql = 'INSERT INTO products (nombre, codigo, precio, descripcion) VALUES (?, ?, ?, ?)';
+      const sql = 'INSERT INTO products (nombre, codigo, precio, descripcion, categoria) VALUES (?, ?, ?, ?, ?)';
 
-      db.run(sql, [nombre, codigo, precio, descripcion], function (err) {
+      db.run(sql, [nombre, codigo, precio, descripcion, categoria], function (err) {
         if (err) {
           if (err.message.includes('UNIQUE constraint failed')) {
             reject(new Error('El código del producto ya está registrado'));
@@ -27,6 +27,7 @@ class Product {
             codigo,
             precio,
             descripcion,
+            categoria,
           });
         }
       });
@@ -37,12 +38,20 @@ class Product {
    * Obtiene todos los productos
    * @returns {Promise<Array>} Lista de productos
    */
-  static async findAll() {
+  static async findAll({ category } = {}) {
     return new Promise((resolve, reject) => {
       const db = getDatabase();
-      const sql = 'SELECT * FROM products ORDER BY created_at DESC';
+      let sql = 'SELECT * FROM products';
+      const params = [];
 
-      db.all(sql, [], (err, rows) => {
+      if (category) {
+        sql += ' WHERE categoria = ?';
+        params.push(category);
+      }
+
+      sql += ' ORDER BY created_at DESC';
+
+      db.all(sql, params, (err, rows) => {
         if (err) {
           reject(err);
         } else {
