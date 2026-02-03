@@ -65,7 +65,27 @@ const initDatabase = () => new Promise((resolve, reject) => {
         return reject(errProd);
       }
       console.log('✅ Tabla products verificada/creada correctamente');
-      resolve();
+
+      const createCartTable = `
+        CREATE TABLE IF NOT EXISTS cart_items (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER NOT NULL,
+          product_id INTEGER NOT NULL,
+          cantidad INTEGER NOT NULL DEFAULT 1,
+          created_at TEXT NOT NULL DEFAULT (datetime('now')),
+          FOREIGN KEY (user_id) REFERENCES users (id),
+          FOREIGN KEY (product_id) REFERENCES products (id)
+        )
+      `;
+
+      database.run(createCartTable, (errCart) => {
+        if (errCart) {
+          console.error('❌ Error al crear tabla cart_items:', errCart.message);
+          return reject(errCart);
+        }
+        console.log('✅ Tabla cart_items verificada/creada correctamente');
+        resolve();
+      });
     });
   });
 });

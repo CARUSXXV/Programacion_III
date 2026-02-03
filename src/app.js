@@ -15,9 +15,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Rutas de la API
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Ruta de bienvenida de la API (solo si no se encuentra un archivo estático)
 app.get('/api', (req, res) => {
@@ -35,6 +37,11 @@ app.get('/api', (req, res) => {
         getAll: 'GET /api/products (requiere token)',
         getByCodigo: 'GET /api/products/:codigo (requiere token)',
         create: 'POST /api/products (requiere token admin)',
+      },
+      cart: {
+        get: 'GET /api/cart (requiere token)',
+        add: 'POST /api/cart (requiere token)',
+        clear: 'DELETE /api/cart (requiere token)',
       },
     },
   });
