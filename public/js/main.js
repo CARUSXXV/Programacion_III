@@ -21,6 +21,7 @@ class ComponentManager {
 
     this.currentView = null;
     this.productManager = new ProductManager(this);
+    this.cartManager = new CartManager(this);
     this.init();
   }
 
@@ -236,6 +237,9 @@ class ComponentManager {
         e.preventDefault();
         window.location.hash = "profile";
       });
+
+    // Actualizar badge del carrito al cargar navbar
+    this.cartManager.updateBadge();
 
     if (btnLogout) {
       btnLogout.addEventListener("click", (e) => {

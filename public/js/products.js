@@ -59,9 +59,26 @@ class ProductManager {
                 <span class="text-xs font-mono text-primary">${product.codigo}</span>
                 <span class="text-xl font-bold text-primary">$${parseFloat(product.precio).toFixed(2)}</span>
               </div>
+              <button 
+                data-add-to-cart="${product.id}"
+                class="w-full mt-4 bg-slate-800 hover:bg-primary text-slate-100 hover:text-slate-950 font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 group"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Añadir al Carrito
+              </button>
             </div>
           </div>
         `).join('');
+
+        // Agregar listeners para los botones de añadir al carrito
+        productsGrid.querySelectorAll('[data-add-to-cart]').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const productId = e.currentTarget.getAttribute('data-add-to-cart');
+            this.app.cartManager.addToCart(productId);
+          });
+        });
       } else {
         productsGrid.innerHTML = `
           <div class="col-span-full text-center py-12">

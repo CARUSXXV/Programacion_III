@@ -1,0 +1,50 @@
+<div id="cart-modal" class="fixed inset-0 z-[60] hidden">
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-sm" id="cart-backdrop"></div>
+  
+  <!-- Modal Content -->
+  <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full" id="cart-content">
+    <!-- Header -->
+    <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-white">Tu Carrito</h2>
+      </div>
+      <button id="btn-close-cart" class="p-2 text-slate-400 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div class="flex-grow overflow-y-auto p-6 space-y-4" id="cart-items-container">
+      <!-- Items will be injected here -->
+      <div class="text-center py-12 text-slate-500">
+        <p>Cargando carrito...</p>
+      </div>
+    </div>
+
+    <!-- Footer / Summary -->
+    <div class="p-6 border-t border-slate-800 bg-slate-900/50 space-y-4">
+      <div class="flex justify-between items-center">
+        <span class="text-slate-400 font-medium">Total Estimado</span>
+        <span class="text-2xl font-black text-primary" id="cart-total">$0.00</span>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-3">
+        <button id="btn-clear-cart" class="px-4 py-3 border border-slate-700 text-slate-400 font-bold rounded-xl hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/50 transition-all">
+          Vaciar
+        </button>
+        <button id="btn-checkout" class="px-4 py-3 bg-primary text-slate-950 font-black rounded-xl hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
+          Pagar Ahora
+        </button>
+      </div>
+      <p class="text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold">Impuestos incluidos en el total</p>
+    </div>
+  </div>
+</div>
