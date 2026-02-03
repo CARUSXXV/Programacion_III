@@ -4,17 +4,47 @@
 
 @layer base {
   body {
-    @apply bg-dark text-slate-100 font-sans;
+    @apply bg-slate-950 text-slate-100 font-sans;
   }
+
+  /* 1. Estabilización del Layout */
+  html {
+    overflow-y: scroll; /* Evita saltos horizontales al cargar contenido largo */
+    background-color: #020617; /* bg-slate-950 - Color de fondo sólido para evitar parpadeo blanco */
+  }
+
+  /* 2. Control de visibilidad para evitar el "Flash" de contenido */
+  #main-content {
+    min-height: 100vh;
+    opacity: 0; /* Empieza invisible */
+    transition: opacity 0.15s ease-in-out;
+    contain: content;
+  }
+
+  /* Clase que añadiremos por JS cuando todo esté listo */
+  #main-content.visible {
+    opacity: 1;
+  }
+
+  /* 3. Evitar elementos fantasma en Header/Footer */
+  .auth-only, .guest-only {
+    display: none !important;
+  }
+
+  /* Estas clases se activarán mediante tu función updateNavbar() */
+  .auth-only.show-flex { display: flex !important; }
+  .auth-only.show-block { display: block !important; }
+  .guest-only.show-flex { display: flex !important; }
+  .guest-only.show-block { display: block !important; }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary hover:bg-primary-dark text-dark font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20;
+    @apply bg-primary hover:bg-primary-dark text-slate-950 font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20;
   }
   
   .btn-secondary {
-    @apply border-2 border-primary text-primary hover:bg-primary hover:text-dark font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5;
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-slate-950 font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:-translate-y-0.5;
   }
 
   .nav-link {
@@ -22,10 +52,10 @@
   }
 
   .auth-card {
-    @apply bg-dark-secondary border border-slate-800 p-8 rounded-xl shadow-2xl w-full max-w-md;
+    @apply bg-slate-900 border border-slate-800 p-8 rounded-xl shadow-2xl w-full max-w-md;
   }
 
   .form-input {
-    @apply w-full bg-dark border border-slate-700 rounded-lg px-4 py-2 text-slate-100 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all;
+    @apply w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-slate-100 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all;
   }
 }
