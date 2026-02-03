@@ -1,0 +1,59 @@
+<div id="confirmation-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-md" id="confirm-backdrop"></div>
+  
+  <!-- Modal Content -->
+  <div class="relative bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0" id="confirm-content">
+    <!-- Header with Icon -->
+    <div class="p-8 text-center">
+      <div id="confirm-icon-container" class="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center">
+        <!-- Icon will be injected here -->
+      </div>
+      <h3 id="confirm-title" class="text-2xl font-black text-white mb-2">¿Estás seguro?</h3>
+      <p id="confirm-message" class="text-slate-400">Esta acción no se puede deshacer.</p>
+    </div>
+
+    <!-- Payment Simulation Form (Hidden by default) -->
+    <div id="payment-form-container" class="hidden px-8 pb-6 space-y-4">
+      <div class="grid grid-cols-1 gap-4">
+        <div class="space-y-1">
+          <label class="text-[10px] uppercase tracking-widest font-bold text-slate-500">Número de Tarjeta</label>
+          <div class="relative">
+            <input type="text" placeholder="**** **** **** 4242" disabled class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-slate-300 cursor-not-allowed">
+            <div class="absolute right-4 top-1/2 -translate-y-1/2">
+              <svg class="w-8 h-8 text-slate-600" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase tracking-widest font-bold text-slate-500">Vencimiento</label>
+            <input type="text" placeholder="12/28" disabled class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-slate-300 cursor-not-allowed">
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] uppercase tracking-widest font-bold text-slate-500">CVC</label>
+            <input type="text" placeholder="***" disabled class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 text-slate-300 cursor-not-allowed">
+          </div>
+        </div>
+      </div>
+      <div class="bg-primary/5 border border-primary/20 rounded-xl p-4 flex items-start gap-3">
+        <svg class="w-5 h-5 text-primary mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-xs text-primary/80 leading-relaxed">Esta es una simulación segura. No se realizará ningún cargo real a tu cuenta.</p>
+      </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="p-6 bg-slate-800/50 border-t border-slate-800 flex gap-3">
+      <button id="btn-confirm-cancel" class="flex-1 px-4 py-3 border border-slate-700 text-slate-400 font-bold rounded-xl hover:bg-slate-800 transition-all">
+        Cancelar
+      </button>
+      <button id="btn-confirm-action" class="flex-1 px-4 py-3 bg-primary text-slate-950 font-black rounded-xl hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
+        Confirmar
+      </button>
+    </div>
+  </div>
+</div>
