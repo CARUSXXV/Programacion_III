@@ -226,6 +226,7 @@ class CartManager {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
+      if (data.message === "Token expirado") { localStorage.removeItem("token"); this.app.updateNavbar(); window.location.hash = "login"; return; }
 
       if (data.items && data.items.length > 0) {
         container.innerHTML = data.items.map(item => `
@@ -318,6 +319,7 @@ class CartManager {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await response.json();
+      if (data.message === "Token expirado") { localStorage.removeItem("token"); this.app.updateNavbar(); window.location.hash = "login"; return; }
         count = data.items ? data.items.length : 0;
       } catch (e) {
         count = 0;
