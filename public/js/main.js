@@ -232,7 +232,7 @@ class ComponentManager {
         this.showMessage(loginMsg, '¡Bienvenido de nuevo!', 'success');
         this.updateNavbar();
         setTimeout(() => this.showView('dashboard'), 1000);
-      } else {
+      } else if (result.message === "Token expirado") { localStorage.removeItem("token"); this.updateNavbar(); this.showView("login"); } else {
         this.showMessage(loginMsg, result.message || 'Credenciales inválidas', 'error');
       }
     } catch (error) {
@@ -268,7 +268,7 @@ class ComponentManager {
         this.showMessage(registerMsg, '¡Registro exitoso! Redirigiendo al login...', 'success');
         document.getElementById('register-form').reset();
         setTimeout(() => this.showView('login'), 1500);
-      } else {
+      } else if (result.message === "Token expirado") { localStorage.removeItem("token"); this.updateNavbar(); this.showView("login"); } else {
         let errorMsg = result.message || 'Error en el registro';
         if (result.errors) {
           errorMsg += `: ${result.errors.map((err) => err.mensaje).join(', ')}`;
@@ -339,7 +339,7 @@ class ComponentManager {
             <span class="text-slate-100 font-bold">${createdDate}</span>
           </div>
         `;
-      } else {
+      } else if (result.message === "Token expirado") { localStorage.removeItem("token"); this.updateNavbar(); this.showView("login"); } else {
         localStorage.removeItem('token');
         this.updateNavbar();
         this.showView('login');
