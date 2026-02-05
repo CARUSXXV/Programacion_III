@@ -83,8 +83,7 @@ class ComponentManager {
    */
   async showView(viewName) {
     const mainContent = document.getElementById('main-content');
-    mainContent.innerHTML = '';
-
+    
     let componentsToLoad = [];
 
     switch (viewName) {
@@ -107,15 +106,12 @@ class ComponentManager {
         componentsToLoad = ['hero', 'features', 'categories', 'cta'];
     }
 
-    // Cargar todos los componentes de la vista
-    for (const component of componentsToLoad) {
-      const html = await this.loadComponent(component);
-      const section = document.createElement('section');
-      section.innerHTML = html;
-      if (section.firstElementChild) {
-        mainContent.appendChild(section.firstElementChild);
-      }
-    }
+    // Cargar todos los componentes de la vista en paralelo
+    const componentPromises = componentsToLoad.map(component => this.loadComponent(component));
+    const componentHtmls = await Promise.all(componentPromises);
+
+    // Unir el HTML de los componentes y actualizar el DOM en un solo paso
+    mainContent.innerHTML = componentHtmls.join('');
 
     this.currentView = viewName;
     this.attachViewListeners(viewName);
