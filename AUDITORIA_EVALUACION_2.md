@@ -1,7 +1,6 @@
 # Auditoría Técnica: Evaluación 2 - Login Básico de RetroVault
 
-**Autor:** Manus AI
-**Fecha:** 30 de Enero de 2026
+**Autor:** Carmine Bernabei - Programación III - 31.742.919
 **Objetivo:** Verificar la implementación del sistema de autenticación de RetroVault contra los requisitos de la Evaluación 2 (Login Básico) y justificar el cumplimiento de cada punto.
 
 ---
@@ -78,12 +77,3 @@ El proyecto **RetroVault** cumple satisfactoriamente con todos los requisitos de
 El sistema de autenticación de RetroVault está **técnicamente impecable** para la Evaluación 2. No solo cumple con los requisitos, sino que los supera en términos de seguridad (eliminación de selección de rol, política de contraseñas fuerte) y calidad de código (tests unitarios, ESLint, arquitectura modular). El proyecto está listo para avanzar a la siguiente fase de desarrollo de productos.
 
 ***
-
-### Referencias
-
-[1] `src/controllers/authController.js` (Línea 26): Rol por defecto a 'client'.
-[2] `src/models/User.js` (Línea 28): Manejo de error de unicidad de email.
-[3] `src/utils/jwtUtils.js`: Implementación de generación y verificación de JWT.
-[4] `src/models/User.js` (Línea 4): Constante `SALT_ROUNDS = 10` para `bcrypt`.
-[5] `src/models/User.js` (Línea 20): Uso de `bcrypt.hash` antes de la inserción.
-[6] `src/middlewares/validationMiddleware.js`: Reglas de validación con `express-validator`.
