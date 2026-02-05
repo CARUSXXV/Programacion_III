@@ -44,6 +44,7 @@ class ProductManager {
       });
 
       const result = await response.json();
+      if (result.message === "Token expirado") { localStorage.removeItem("token"); this.app.updateNavbar(); this.app.showView("login"); return; }
 
       if (result.success && result.data.length > 0) {
         const products = result.data;
@@ -108,6 +109,7 @@ class ProductManager {
       });
 
       const result = await response.json();
+      if (result.message === "Token expirado") { localStorage.removeItem("token"); this.app.updateNavbar(); this.app.showView("login"); return; }
 
       if (result.success) {
         this.app.showMessage(productMsg, '¡Producto creado exitosamente!', 'success');
